@@ -17,10 +17,21 @@ export function pickTopic(lastTopic) {
   return source[Math.floor(Math.random() * source.length)]
 }
 
-// 縛りを1つ抽選(無効時は null)
+// 縛りを1つ抽選(無効時は null)。
+// values を持つ縛りは具体的な数字・言葉を1つ割り当て、description に差し込む。
 export function pickConstraint(enabled) {
   if (!enabled) return null
-  return constraints[Math.floor(Math.random() * constraints.length)]
+  const c = constraints[Math.floor(Math.random() * constraints.length)]
+  if (c.values && c.values.length > 0) {
+    const value = c.values[Math.floor(Math.random() * c.values.length)]
+    return {
+      id: c.id,
+      label: c.label,
+      value,
+      description: c.template.replace('{}', value),
+    }
+  }
+  return { id: c.id, label: c.label, description: c.template }
 }
 
 // 参加者からランダムに嘘つきを1人選出(インデックスを返す)
