@@ -2,7 +2,7 @@ import { useState } from 'react'
 
 // 役割確認フェーズ。プレイヤーを1人ずつ回し、本人が押している間だけ役割を表示。
 // 他人の役割が一瞬でも見えないよう、受け渡し画面(handoff)と確認画面を厳密に分離する。
-export default function RevealScreen({ players, topic, liarIndex, onDone }) {
+export default function RevealScreen({ players, topic, constraint, liarIndex, onDone }) {
   const [index, setIndex] = useState(0) // 確認中のプレイヤー
   const [sub, setSub] = useState('handoff') // handoff | confirm
   const [holding, setHolding] = useState(false) // 押下中のみ役割表示
@@ -77,12 +77,25 @@ export default function RevealScreen({ players, topic, liarIndex, onDone }) {
                 <div className="reveal-role__sub">
                   全部作り話をしてください。バレないように！
                 </div>
+                {constraint && (
+                  <div className="reveal-constraint">
+                    <span className="reveal-constraint__label">
+                      🤫 あなただけの秘密の縛り
+                    </span>
+                    <span className="reveal-constraint__text">
+                      {constraint.description}
+                    </span>
+                    <span className="reveal-constraint__note">
+                      ※ 他の人は縛りを知りません。自然に盛り込んで！
+                    </span>
+                  </div>
+                )}
               </div>
             ) : (
               <div className="reveal-role">
                 <div className="reveal-role__big">あなたは正直者 😇</div>
                 <div className="reveal-role__sub">
-                  本当の実体験を話してください。
+                  本当の実体験を話してください。縛りはありません。
                 </div>
               </div>
             )}

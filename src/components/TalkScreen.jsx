@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useCountdown, formatTime } from '../useCountdown.js'
-import ConstraintBanner from './ConstraintBanner.jsx'
+import LiarHint from './LiarHint.jsx'
 
 // 1人分のカウントダウンタイマー。speaker が変わるたび key で remount してリセット。
 function TalkTimer({ seconds }) {
@@ -18,7 +18,7 @@ function TalkTimer({ seconds }) {
   )
 }
 
-export default function TalkScreen({ players, topic, constraint, talkOrder, settings, onDone }) {
+export default function TalkScreen({ players, topic, constraintActive, talkOrder, settings, onDone }) {
   const [pos, setPos] = useState(0)
   const speaker = players[talkOrder[pos]]
   const isLast = pos === talkOrder.length - 1
@@ -30,7 +30,7 @@ export default function TalkScreen({ players, topic, constraint, talkOrder, sett
 
   return (
     <div className="screen fade-in">
-      <ConstraintBanner constraint={constraint} />
+      <LiarHint active={constraintActive} />
 
       <div className="topic-display">
         <span className="topic-display__label">お題</span>

@@ -1,9 +1,8 @@
 import { useState } from 'react'
-import ConstraintBanner from './ConstraintBanner.jsx'
 
 // 投票フェーズ。1人ずつ回し、自分以外から嘘つきを選ぶ。
 // 投票後は受け渡し画面を挟み、選択内容が次の人に見えないようにする。
-export default function VoteScreen({ players, constraint, onVote, onDone }) {
+export default function VoteScreen({ players, onVote, onDone }) {
   const [index, setIndex] = useState(0)
   const [sub, setSub] = useState('handoff') // handoff | vote
   const voter = players[index]
@@ -40,7 +39,6 @@ export default function VoteScreen({ players, constraint, onVote, onDone }) {
 
   return (
     <div className="screen fade-in">
-      <ConstraintBanner constraint={constraint} />
       <h1 className="screen__title">{voter.name} さんの投票</h1>
       <p className="vote-lead">嘘つきだと思う人をタップ</p>
 

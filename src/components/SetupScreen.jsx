@@ -117,10 +117,10 @@ export default function SetupScreen({ settings, onChange, onStart }) {
 
       <section className="card card--row">
         <div>
-          <div className="field-label field-label--inline">縛りルール</div>
+          <div className="field-label field-label--inline">嘘つきの秘密の縛り</div>
           <div className="note note--tight">
             {settings.constraintEnabled
-              ? '毎ゲーム1つ抽選されます'
+              ? '嘘つきだけに難しい縛りを課します'
               : '縛りなしで遊びます'}
           </div>
         </div>
