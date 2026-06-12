@@ -17,21 +17,24 @@ export function pickTopic(lastTopic) {
   return source[Math.floor(Math.random() * source.length)]
 }
 
-// 縛りを1つ抽選(無効時は null)。
-// values を持つ縛りは具体的な数字・言葉を1つ割り当て、description に差し込む。
+// 縛りを1つ抽選(無効時は null)。嘘つきだけに渡される秘密の課題。
+// 各 slot のプールから具体値を抽選し(値は全 slot で重複しない)、template に差し込む。
 export function pickConstraint(enabled) {
   if (!enabled) return null
   const c = constraints[Math.floor(Math.random() * constraints.length)]
-  if (c.values && c.values.length > 0) {
-    const value = c.values[Math.floor(Math.random() * c.values.length)]
-    return {
-      id: c.id,
-      label: c.label,
-      value,
-      description: c.template.replace('{}', value),
-    }
-  }
-  return { id: c.id, label: c.label, description: c.template }
+  const used = new Set()
+  const values = c.slots.map((pool) => {
+    const avail = pool.filter((v) => !used.has(v))
+    const src = avail.length > 0 ? avail : pool
+    const v = src[Math.floor(Math.random() * src.length)]
+    used.add(v)
+    return v
+  })
+  let description = c.template
+  values.forEach((v) => {
+    description = description.replace('{}', v)
+  })
+  return { id: c.id, label: c.label, values, description }
 }
 
 // 参加者からランダムに嘘つきを1人選出(インデックスを返す)

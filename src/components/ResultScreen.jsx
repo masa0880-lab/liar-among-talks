@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { computeResult } from '../game.js'
 
 export default function ResultScreen({ state, onReplay, onReset }) {
-  const { players, votes, liarIndex, topic } = state
+  const { players, votes, liarIndex, topic, constraint } = state
   const result = computeResult(state)
   const { tally, liarWins, reason } = result
 
@@ -82,6 +82,12 @@ export default function ResultScreen({ state, onReplay, onReset }) {
           <p className="liar-reveal">
             😈 <b>{players[liarIndex].name}</b> さんでした！
           </p>
+          {constraint && (
+            <div className="liar-constraint">
+              <span className="liar-constraint__label">課せられていた秘密の縛り</span>
+              <span className="liar-constraint__text">{constraint.description}</span>
+            </div>
+          )}
         </section>
       )}
 

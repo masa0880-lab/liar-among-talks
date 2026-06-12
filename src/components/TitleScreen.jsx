@@ -40,7 +40,8 @@ export default function TitleScreen({ onStart }) {
                 <span className="how-step">2</span>
                 <div>
                   順番にトーク → 質問タイム。
-                  <b>共通の縛りルール</b>を守りながら話します。
+                  嘘つきには<b>本人だけに見える難しい縛り</b>が課され、
+                  作り話に無理やり盛り込むとボロが出ます。
                 </div>
               </li>
               <li>

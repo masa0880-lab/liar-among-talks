@@ -1,14 +1,14 @@
 import { useCountdown, formatTime } from '../useCountdown.js'
-import ConstraintBanner from './ConstraintBanner.jsx'
+import LiarHint from './LiarHint.jsx'
 
-export default function QuestionScreen({ constraint, questionTime, onDone }) {
+export default function QuestionScreen({ constraintActive, questionTime, onDone }) {
   const { remaining } = useCountdown(questionTime, { autoStart: true })
   const danger = remaining <= 10
   const done = remaining <= 0
 
   return (
     <div className="screen fade-in">
-      <ConstraintBanner constraint={constraint} />
+      <LiarHint active={constraintActive} />
 
       <div className="talk-main talk-main--grow">
         <div className="question-emoji" aria-hidden>🤔💬</div>
@@ -21,9 +21,9 @@ export default function QuestionScreen({ constraint, questionTime, onDone }) {
         >
           {done ? '時間です' : formatTime(remaining)}
         </div>
-        {constraint && (
+        {constraintActive && (
           <p className="note">
-            リマインド：全員「{constraint.label}」を守って話しているはず…？
+            不自然に出てきた数字や言葉は、嘘つきの縛りかも…？
           </p>
         )}
       </div>

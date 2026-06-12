@@ -56,6 +56,7 @@ export default function App() {
           <RevealScreen
             players={state.players}
             topic={state.topic}
+            constraint={state.constraint}
             liarIndex={state.liarIndex}
             onDone={() => dispatch({ type: 'GO_TALK' })}
           />
@@ -65,7 +66,7 @@ export default function App() {
           <TalkScreen
             players={state.players}
             topic={state.topic}
-            constraint={state.constraint}
+            constraintActive={!!state.constraint}
             talkOrder={state.talkOrder}
             settings={state.settings}
             onDone={() => dispatch({ type: 'END_TALK' })}
@@ -74,7 +75,7 @@ export default function App() {
 
         {phase === 'question' && (
           <QuestionScreen
-            constraint={state.constraint}
+            constraintActive={!!state.constraint}
             questionTime={state.settings.questionTime}
             onDone={() => dispatch({ type: 'GO_VOTE' })}
           />
@@ -83,7 +84,6 @@ export default function App() {
         {phase === 'vote' && (
           <VoteScreen
             players={state.players}
-            constraint={state.constraint}
             onVote={(voterIndex, targetIndex) =>
               dispatch({ type: 'CAST_VOTE', voterIndex, targetIndex })
             }
