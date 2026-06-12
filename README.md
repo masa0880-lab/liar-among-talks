@@ -42,7 +42,7 @@ https://<your-app>.vercel.app
 src/
   App.jsx              フェーズ管理・全体配線
   game.js              状態遷移(reducer)・抽選・勝敗判定
-  data.js              お題(46個)・縛りルール(7種、数字/言葉を具体的に割当)
+  data.js              お題(46個)・縛りルール(8種、全て数字/言葉を具体的に割当)
   useCountdown.js      カウントダウンタイマー
   components/          各画面(Title / Setup / Reveal / Talk / Question / Vote / Result)
 ```
